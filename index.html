@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Darkon &#8212; darkon 0.0.1 documentation</title>
+    <title>Darkon &#8212; darkon 0.0.2 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.1',
+        VERSION:     '0.0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -77,21 +77,57 @@ It can be used for prioritize potential mislabeled examples to be fixed, and deb
 </pre></div>
 </div>
 </div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">inspector</span> <span class="o">=</span> <span class="n">darkon</span><span class="o">.</span><span class="n">Influence</span><span class="p">(</span><span class="n">workspace_path</span><span class="p">,</span>
+                             <span class="n">YourDataFeeder</span><span class="p">(),</span>
+                             <span class="n">loss_op_train</span><span class="p">,</span>
+                             <span class="n">loss_op_test</span><span class="p">,</span>
+                             <span class="n">x_placeholder</span><span class="p">,</span>
+                             <span class="n">y_placeholder</span><span class="p">)</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">upweighting_influence_batch</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span>
+                                               <span class="n">test_indices</span><span class="p">,</span>
+                                               <span class="n">test_batch_size</span><span class="p">,</span>
+                                               <span class="n">approx_params</span><span class="p">,</span>
+                                               <span class="n">train_batch_size</span><span class="p">,</span>
+                                               <span class="n">train_iterations</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="examples-getting-started">
 <h2>Examples / Getting Started<a class="headerlink" href="#examples-getting-started" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/darkonhub/darkon-examples">Examples</a></li>
-<li>Documentation: <span class="raw-html-m2r"><del>will be soon</del></span></li>
+<li><a class="reference external" href="https://darkonhub.github.io">Documentation</a></li>
 </ul>
 </div>
 <div class="section" id="communication">
 <h2>Communication<a class="headerlink" href="#communication" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><a class="reference external" href="https://github.com/darkonhub/darkon/issues">Issues</a>: report issues, bugs, and request new features</li>
-<li><a class="reference external" href="https://github.com/darkonhub/darkon/pulls">Pull request</a></li>
-<li>News: <span class="raw-html-m2r"><del>link twitter account</del></span></li>
-<li>Discuss: <span class="raw-html-m2r"><del>gitter</del></span></li>
-<li>Email: <a class="reference external" href="mailto:darkon&#37;&#52;&#48;neosapience&#46;com">darkon<span>&#64;</span>neosapience<span>&#46;</span>com</a></li>
+<ul>
+<li><p class="first"><a class="reference external" href="https://github.com/darkonhub/darkon/issues">Issues</a>: report issues, bugs, and request new features</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://github.com/darkonhub/darkon/pulls">Pull request</a></p>
+</li>
+<li><p class="first">News: <span class="raw-html-m2r"><del>link twitter account</del></span></p>
+</li>
+<li><p class="first">Discuss:
+.. image:: <a class="reference external" href="https://badges.gitter.im/darkonhub/darkon.svg">https://badges.gitter.im/darkonhub/darkon.svg</a></p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">target:</th><td class="field-body"><a class="reference external" href="https://gitter.im/darkonhub/darkon?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge">https://gitter.im/darkonhub/darkon?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">alt:</th><td class="field-body">Gitter</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p class="first">Email: <a class="reference external" href="mailto:darkon&#37;&#52;&#48;neosapience&#46;com">darkon<span>&#64;</span>neosapience<span>&#46;</span>com</a></p>
+</li>
 </ul>
 </div>
 <div class="section" id="authors">
@@ -165,7 +201,7 @@ It can be used for prioritize potential mislabeled examples to be fixed, and deb
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017, Neosapience, Inc..
+      &copy;2017 Neosapience, Inc.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
