@@ -1,0 +1,7 @@
+darkon\.influence\.influence module
+===================================
+
+.. automodule:: darkon.influence.influence
+    :members:
+    :undoc-members:
+    :show-inheritance:

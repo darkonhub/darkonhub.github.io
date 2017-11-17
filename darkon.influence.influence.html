@@ -1,0 +1,242 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>darkon.influence.influence module &#8212; darkon 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="darkon.log module" href="darkon.log.html" />
+    <link rel="prev" title="darkon.influence.feeder module" href="darkon.influence.feeder.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-darkon.influence.influence">
+<span id="darkon-influence-influence-module"></span><h1>darkon.influence.influence module<a class="headerlink" href="#module-darkon.influence.influence" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>Pang Wei Koh and Percy Liang “Understanding Black-box Predictions via Influence Functions” ICML2017</td></tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="darkon.influence.influence.Influence">
+<em class="property">class </em><code class="descclassname">darkon.influence.influence.</code><code class="descname">Influence</code><span class="sig-paren">(</span><em>workspace</em>, <em>feeder</em>, <em>loss_op_train</em>, <em>loss_op_test</em>, <em>x_placeholder</em>, <em>y_placeholder</em>, <em>test_feed_options=None</em>, <em>train_feed_options=None</em>, <em>trainable_variables=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/influence.html#Influence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.influence.Influence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Influence Class</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>workspace</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path for workspace directory</li>
+<li><strong>feeder</strong> (<a class="reference internal" href="darkon.influence.feeder.html#darkon.influence.feeder.InfluenceFeeder" title="darkon.influence.feeder.InfluenceFeeder"><em>InfluenceFeeder</em></a>) – Dataset feeder</li>
+<li><strong>loss_op_train</strong> (<em>tf.Operation</em>) – Tensor for loss function used for training. it may includes regularization.</li>
+<li><strong>loss_op_test</strong> (<em>tf.Operation</em>) – Tensor for loss function for inference.</li>
+<li><strong>x_placeholder</strong> (<em>tf.Tensor</em>) – Data place holder
+Tensor from tf.placeholder()</li>
+<li><strong>y_placeholder</strong> (<em>tf.Tensor</em>) – Target place holder
+Tensor from tf.placeholder()</li>
+<li><strong>test_feed_options</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Optional parameters to run loss operation in testset</li>
+<li><strong>train_feed_options</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Optional parameters to run loss operation in trainset</li>
+<li><strong>trainable_variables</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#tuple" title="(in Python v2.7)"><em>tuple</em></a><em>, or </em><em>list</em>) – Trainable variables to be used
+If None, all variables are trainable
+Default: None</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="darkon.influence.influence.Influence.upweighting_influence">
+<code class="descname">upweighting_influence</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/influence.html#Influence.upweighting_influence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.influence.Influence.upweighting_influence" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Calculate influence score of given training samples that affect on the test samples</dt>
+<dd>Negative value indicates bad effect on the test loss</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sess</strong> (<em>tf.Session</em>) – Tensorflow session</li>
+<li><strong>test_indices</strong> (<em>list</em>) – Test samples to be used. Influence on these samples are calculated.</li>
+<li><strong>test_batch_size</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – batch size for test samples</li>
+<li><strong>approx_params</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – <p>Parameters for inverse hessian vector product approximation
+Default:</p>
+<blockquote>
+<div>{‘scale’: 1e4,
+‘damping’: 0.01,
+‘num_repeats’: 1,
+‘recursion_batch_size’: 10,
+‘recursion_depth’: 10000}</div></blockquote>
+</li>
+<li><strong>train_indices</strong> (<em>list</em>) – Training samples indices to be calculated.</li>
+<li><strong>num_total_train_example</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of total training samples used for training,
+which might be different from the size of train_indices</li>
+<li><strong>force_refresh</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – If False, it calculates only when test samples and parameters are changed.
+Default: False</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)">numpy.ndarray</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="darkon.influence.influence.Influence.upweighting_influence_batch">
+<code class="descname">upweighting_influence_batch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/influence.html#Influence.upweighting_influence_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.influence.Influence.upweighting_influence_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iteratively calculate influence scores for training data sampled by batch sampler
+Negative value indicates bad effect on the test loss</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sess</strong> (<em>tf.Session</em>) – Tensorflow session</li>
+<li><strong>test_indices</strong> (<em>list</em>) – Test samples to be used. Influence on these samples are calculated.</li>
+<li><strong>test_batch_size</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – batch size for test samples</li>
+<li><strong>approx_params</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – <p>Parameters for inverse hessian vector product approximation
+Default:</p>
+<blockquote>
+<div>{‘scale’: 1e4,
+‘damping’: 0.01,
+‘num_repeats’: 1,
+‘recursion_batch_size’: 10,
+‘recursion_depth’: 10000}</div></blockquote>
+</li>
+<li><strong>train_batch_size</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Batch size of training samples</li>
+<li><strong>train_iterations</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of iterations</li>
+<li><strong>subsamples</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of training samples in a batch to be calculated.
+If -1, all samples are calculated (no subsampling).
+Default: -1</li>
+<li><strong>force_refresh</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – If False, it calculates only when test samples and parameters are changed.
+Default: False</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)">numpy.ndarray</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">darkon</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=darkonhub&repo=darkon&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="darkon.html">darkon package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="darkon.influence.html">darkon.influence package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="darkon.influence.feeder.html">darkon.influence.feeder module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">darkon.influence.influence module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="darkon.log.html">darkon.log module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">darkon</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="darkon.html">darkon package</a><ul>
+  <li><a href="darkon.influence.html">darkon.influence package</a><ul>
+      <li>Previous: <a href="darkon.influence.feeder.html" title="previous chapter">darkon.influence.feeder module</a></li>
+      <li>Next: <a href="darkon.log.html" title="next chapter">darkon.log module</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Neosapience, Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/darkon.influence.influence.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

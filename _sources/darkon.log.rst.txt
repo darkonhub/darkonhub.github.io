@@ -1,0 +1,7 @@
+darkon\.log module
+==================
+
+.. automodule:: darkon.log
+    :members:
+    :undoc-members:
+    :show-inheritance:

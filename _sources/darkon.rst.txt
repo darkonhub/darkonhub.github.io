@@ -1,0 +1,24 @@
+darkon package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    darkon.influence
+
+Submodules
+----------
+
+.. toctree::
+
+   darkon.log
+
+Module contents
+---------------
+
+.. automodule:: darkon
+    :members:
+    :undoc-members:
+    :show-inheritance:

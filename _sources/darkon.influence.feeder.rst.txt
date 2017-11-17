@@ -1,0 +1,7 @@
+darkon\.influence\.feeder module
+================================
+
+.. automodule:: darkon.influence.feeder
+    :members:
+    :undoc-members:
+    :show-inheritance:

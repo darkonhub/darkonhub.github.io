@@ -1,0 +1,195 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>darkon.influence.feeder module &#8212; darkon 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="darkon.influence.influence module" href="darkon.influence.influence.html" />
+    <link rel="prev" title="darkon.influence package" href="darkon.influence.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-darkon.influence.feeder">
+<span id="darkon-influence-feeder-module"></span><h1>darkon.influence.feeder module<a class="headerlink" href="#module-darkon.influence.feeder" title="Permalink to this headline">¶</a></h1>
+<p>Feeding interface for Influence class</p>
+<dl class="class">
+<dt id="darkon.influence.feeder.InfluenceFeeder">
+<em class="property">class </em><code class="descclassname">darkon.influence.feeder.</code><code class="descname">InfluenceFeeder</code><a class="reference internal" href="_modules/darkon/influence/feeder.html#InfluenceFeeder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.feeder.InfluenceFeeder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="darkon.influence.feeder.InfluenceFeeder.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/feeder.html#InfluenceFeeder.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.feeder.InfluenceFeeder.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>reset dataset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="darkon.influence.feeder.InfluenceFeeder.test_indices">
+<code class="descname">test_indices</code><span class="sig-paren">(</span><em>indices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/feeder.html#InfluenceFeeder.test_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.feeder.InfluenceFeeder.test_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>test data feeder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>indices</strong> (<em>testing sample index</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>x</strong> (<em>feed input values</em>)</li>
+<li><strong>y</strong> (<em>feed label values</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="darkon.influence.feeder.InfluenceFeeder.train_batch">
+<code class="descname">train_batch</code><span class="sig-paren">(</span><em>batch_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/feeder.html#InfluenceFeeder.train_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.feeder.InfluenceFeeder.train_batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>training data feeder by batch sampling</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>batch_size</strong> (<em>batch size</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>xs</strong> (<em>feed input values</em>)</li>
+<li><strong>ys</strong> (<em>feed label values</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="darkon.influence.feeder.InfluenceFeeder.train_one">
+<code class="descname">train_one</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/feeder.html#InfluenceFeeder.train_one"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.feeder.InfluenceFeeder.train_one" title="Permalink to this definition">¶</a></dt>
+<dd><p>single training data feeder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<em>training sample index</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>x</strong> (<em>feed one input value</em>)</li>
+<li><strong>y</strong> (<em>feed one label value</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">darkon</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=darkonhub&repo=darkon&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="darkon.html">darkon package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="darkon.influence.html">darkon.influence package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">darkon.influence.feeder module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="darkon.influence.influence.html">darkon.influence.influence module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="darkon.log.html">darkon.log module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">darkon</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="darkon.html">darkon package</a><ul>
+  <li><a href="darkon.influence.html">darkon.influence package</a><ul>
+      <li>Previous: <a href="darkon.influence.html" title="previous chapter">darkon.influence package</a></li>
+      <li>Next: <a href="darkon.influence.influence.html" title="next chapter">darkon.influence.influence module</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Neosapience, Inc..
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/darkon.influence.feeder.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
