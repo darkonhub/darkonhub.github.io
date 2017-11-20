@@ -1,5 +1,5 @@
-darkon\.influence\.influence module
-===================================
+influence\.influence
+====================
 
 .. automodule:: darkon.influence.influence
     :members:

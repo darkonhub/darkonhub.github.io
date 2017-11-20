@@ -5,12 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>darkon.influence.influence module &#8212; darkon 0.0.2 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <title>influence.influence &#8212; darkon 0.0.2 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '../',
         VERSION:     '0.0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -18,15 +18,16 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="darkon.log module" href="darkon.log.html" />
-    <link rel="prev" title="darkon.influence.feeder module" href="darkon.influence.feeder.html" />
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Versions" href="../version.html" />
+    <link rel="prev" title="influence.feeder" href="darkon.influence.feeder.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -41,7 +42,7 @@
           <div class="body" role="main">
             
   <div class="section" id="module-darkon.influence.influence">
-<span id="darkon-influence-influence-module"></span><h1>darkon.influence.influence module<a class="headerlink" href="#module-darkon.influence.influence" title="Permalink to this headline">¶</a></h1>
+<span id="influence-influence"></span><h1>influence.influence<a class="headerlink" href="#module-darkon.influence.influence" title="Permalink to this headline">¶</a></h1>
 <p class="rubric">References</p>
 <table class="docutils footnote" frame="void" id="id1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -51,7 +52,7 @@
 </table>
 <dl class="class">
 <dt id="darkon.influence.influence.Influence">
-<em class="property">class </em><code class="descclassname">darkon.influence.influence.</code><code class="descname">Influence</code><span class="sig-paren">(</span><em>workspace</em>, <em>feeder</em>, <em>loss_op_train</em>, <em>loss_op_test</em>, <em>x_placeholder</em>, <em>y_placeholder</em>, <em>test_feed_options=None</em>, <em>train_feed_options=None</em>, <em>trainable_variables=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/influence.html#Influence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.influence.Influence" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">Influence</code><span class="sig-paren">(</span><em>workspace</em>, <em>feeder</em>, <em>loss_op_train</em>, <em>loss_op_test</em>, <em>x_placeholder</em>, <em>y_placeholder</em>, <em>test_feed_options=None</em>, <em>train_feed_options=None</em>, <em>trainable_variables=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/influence/influence.html#Influence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.influence.Influence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Influence Class</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -78,7 +79,7 @@ Default: None</li>
 </table>
 <dl class="method">
 <dt id="darkon.influence.influence.Influence.upweighting_influence">
-<code class="descname">upweighting_influence</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/influence.html#Influence.upweighting_influence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.influence.Influence.upweighting_influence" title="Permalink to this definition">¶</a></dt>
+<code class="descname">upweighting_influence</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/influence/influence.html#Influence.upweighting_influence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.influence.Influence.upweighting_influence" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Calculate influence score of given training samples that affect on the test samples</dt>
 <dd>Negative value indicates bad effect on the test loss</dd>
@@ -120,7 +121,7 @@ Default: False</li>
 
 <dl class="method">
 <dt id="darkon.influence.influence.Influence.upweighting_influence_batch">
-<code class="descname">upweighting_influence_batch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/darkon/influence/influence.html#Influence.upweighting_influence_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.influence.Influence.upweighting_influence_batch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">upweighting_influence_batch</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/influence/influence.html#Influence.upweighting_influence_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.influence.influence.Influence.upweighting_influence_batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Iteratively calculate influence scores for training data sampled by batch sampler
 Negative value indicates bad effect on the test loss</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -170,7 +171,7 @@ Default: False</li>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">darkon</a></h1>
+<h1 class="logo"><a href="../index.html">darkon</a></h1>
 
 
 
@@ -188,30 +189,29 @@ Default: False</li>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="darkon.html">darkon package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="darkon.influence.html">darkon.influence package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="darkon.influence.feeder.html">darkon.influence.feeder module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">darkon.influence.influence module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="darkon.log.html">darkon.log module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">darkon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Darkon</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="darkon.influence.feeder.html">influence.feeder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">influence.influence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../version.html">Versions</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="darkon.html">darkon package</a><ul>
-  <li><a href="darkon.influence.html">darkon.influence package</a><ul>
-      <li>Previous: <a href="darkon.influence.feeder.html" title="previous chapter">darkon.influence.feeder module</a></li>
-      <li>Next: <a href="darkon.log.html" title="next chapter">darkon.log module</a></li>
-  </ul></li>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API</a><ul>
+      <li>Previous: <a href="darkon.influence.feeder.html" title="previous chapter">influence.feeder</a></li>
+      <li>Next: <a href="../version.html" title="next chapter">Versions</a></li>
   </ul></li>
   </ul></li>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
+    <form class="search" action="../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
@@ -231,7 +231,7 @@ Default: False</li>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="_sources/darkon.influence.influence.rst.txt"
+      <a href="../_sources/api/darkon.influence.influence.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

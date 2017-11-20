@@ -1,5 +1,5 @@
-darkon\.influence\.feeder module
-================================
+influence\.feeder
+=================
 
 .. automodule:: darkon.influence.feeder
     :members:
