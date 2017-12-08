@@ -122,24 +122,17 @@
 <a class="reference external image-reference" href="https://gitter.im/darkonhub/darkon?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img alt="Gitter" src="https://badges.gitter.im/darkonhub/darkon.svg" /></a>
 <a class="reference external image-reference" href="https://www.codacy.com/app/zironycho/darkon?utm_source=github.com&amp;amp;utm_medium=referral&amp;amp;utm_content=darkonhub/darkon&amp;amp;utm_campaign=Badge_Grade"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/077f07f7a52b4d8186beee724ed19231" /></a>
 <hr class="docutils" />
-<p><strong>Darkon: Performance hacking for your deep learning models</strong></p>
-<p><strong>Darkon</strong> is an open source toolkit for improving and debugging deep learning models.
-People think that deep neural network is a black-box that requires only large dataset and expect learning algorithms returns well-performing models.
-However, trained models often fail in real world usages, and it is difficult to fix such failure due to the black-box nature of deep neural networks.
-We are developing <strong>Darkon</strong> to ease effort to improve performance of deep learning models.</p>
-<p>In this first release, we provide influence score calculation easily applicable to existing Tensorflow models (other models to be supported later)
-Influence score can be used for filtering bad training samples that affects test performance negatively.
+<p><strong>Darkon: Toolkit to Hack Your Deep Learning Models</strong></p>
+<p><strong>Darkon</strong> is an open source toolkit to understand deep learning models better. Deep learning is often referred as a black-box that is difficult to understand.
+But, accountability and controllability could be critical to commercialize deep learning models. People often think that high accuracy on prepared dataset
+is enough to use the model for commercial products. However, well-performing models on prepared dataset often fail in real world usages and cause corner cases
+to be fixed. Moreover, it is necessary to explain the result to trust the system in some applications such as medical diagnosis, financial decisions, etc. We hope<span class="raw-html-m2r"><br></span>
+<strong>Darkon</strong> can help you to understand the trained models, which could be used to debug failures, interpret decisions, and so on.</p>
+<p>In this first release, we provide influence score calculation easily applicable to any Tensorflow models (other models to be supported later).
+The score can be used for filtering bad training samples that affects test performance negatively.
 It can be used for prioritize potential mislabeled examples to be fixed, and debugging distribution mismatch between train and test samples.</p>
-<p><strong>Darkon</strong> will gradually provide performance hacking methods easily applicable to existing projects based on following technologies.</p>
-<ul class="simple">
-<li>Dataset inspection/filtering/management</li>
-<li>Continual learning</li>
-<li>Meta/transfer learning</li>
-<li>Interpretable ML</li>
-<li>Hyper parameter optimization</li>
-<li>Network architecture search</li>
-</ul>
-<p>More features will be released soon. Feedback and feature request are always welcome, which help us to manage priorities. Please keep your eyes on <strong>Darkon</strong>.</p>
+<p>We will gradually enable technologies to analyze deep learning models easily applicable to your existing projects.
+More features will be released soon. Feedback and feature request are always welcome, which help us to manage priorities. Please keep your eyes on <strong>Darkon</strong>.</p>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -176,7 +169,7 @@ It can be used for prioritize potential mislabeled examples to be fixed, and deb
 <li><a class="reference external" href="https://github.com/darkonhub/darkon/issues">Issues</a>: report issues, bugs, and request new features</li>
 <li><a class="reference external" href="https://github.com/darkonhub/darkon/pulls">Pull request</a></li>
 <li>Discuss: <a class="reference external" href="https://gitter.im/darkonhub/darkon?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge">Gitter</a></li>
-<li>Email: <a class="reference external" href="mailto:darkon&#37;&#52;&#48;neosapience&#46;com">darkon<span>&#64;</span>neosapience<span>&#46;</span>com</a></li>
+<li>Email: <a class="reference external" href="mailto:contact&#37;&#52;&#48;darkon&#46;io">contact<span>&#64;</span>darkon<span>&#46;</span>io</a></li>
 </ul>
 </div>
 <div class="section" id="authors">
@@ -189,7 +182,10 @@ It can be used for prioritize potential mislabeled examples to be fixed, and deb
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p>[1] Pang Wei Koh and Percy Liang “<a class="reference external" href="https://arxiv.org/abs/1703.04730">Understanding Black-box Predictions via Influence Functions</a>” ICML2017</p>
+<p>[1] Cook, R. D. and Weisberg, S. “<a class="reference external" href="https://www.casact.org/pubs/proceed/proceed94/94123.pdf">Residuals and influence in regression</a>”, New York: Chapman and Hall, 1982</p>
+<p>[2] Koh, P. W. and Liang, P. “<a class="reference external" href="https://arxiv.org/abs/1703.04730">Understanding Black-box Predictions via Influence Functions</a>” ICML2017</p>
+<p>[3] Pearlmutter, B. A. “<a class="reference external" href="http://www.bcl.hamilton.ie/~barak/papers/nc-hessian.pdf">Fast exact multiplication by the hessian</a>” Neural Computation, 1994</p>
+<p>[4] Agarwal, N., Bullins, B., and Hazan, E. “<a class="reference external" href="https://arxiv.org/abs/1602.03943">Second order stochastic optimization in linear time</a>” arXiv preprint arXiv:1602.03943</p>
 </div>
 </div>
 
