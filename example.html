@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Examples &#8212; darkon 0.0.4 documentation</title>
+    <title>Examples &#8212; darkon 0.0.5 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.4',
+        VERSION:     '0.0.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -26,7 +26,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Versions" href="version.html" />
-    <link rel="prev" title="influence.influence" href="api/darkon.influence.influence.html" />
+    <link rel="prev" title="gradcam.gradcam" href="api/darkon.gradcam.gradcam.html" />
   <meta property="og:site_name" content="darkon" />
   <meta property="og:title" content="Welcome to Darkon" />
   <meta property="og:description" content="Performance hacking for your deep learning models." />
@@ -76,7 +76,8 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">About Darkon</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#cifar-10-resnet">Cifar-10, ResNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#darkon-influence">darkon.Influence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#darkon-gradcam">darkon.Gradcam</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="version.html">Versions</a></li>
@@ -86,7 +87,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="api/darkon.influence.influence.html" title="previous chapter">influence.influence</a></li>
+      <li>Previous: <a href="api/darkon.gradcam.gradcam.html" title="previous chapter">gradcam.gradcam</a></li>
       <li>Next: <a href="version.html" title="next chapter">Versions</a></li>
   </ul></li>
 </ul>
@@ -110,12 +111,22 @@
   <div class="section" id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
 <p>All of examples in <a class="reference external" href="https://github.com/darkonhub/darkon-examples">here</a></p>
-<div class="section" id="cifar-10-resnet">
-<h2>Cifar-10, ResNet<a class="headerlink" href="#cifar-10-resnet" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<div class="section" id="darkon-influence">
+<h2>darkon.Influence<a class="headerlink" href="#darkon-influence" title="Permalink to this headline">¶</a></h2>
+<p>Used Cifar-10, ResNet</p>
 <ul class="simple">
 <li><a class="reference external" href="http://nbviewer.jupyter.org/github/darkonhub/darkon-examples/blob/master/cifar10-resnet/influence_cifar10_resnet.ipynb">Upweighting Influence</a></li>
 <li><a class="reference external" href="http://nbviewer.jupyter.org/github/darkonhub/darkon-examples/blob/master/cifar10-resnet/influence_cifar10_resnet_mislabel_all_layers.ipynb">Mislabel detection with all of layers</a></li>
 <li><a class="reference external" href="http://nbviewer.jupyter.org/github/darkonhub/darkon-examples/blob/master/cifar10-resnet/influence_cifar10_resnet_mislabel_one_layer.ipynb">Mislabel detection with one top layer</a></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="darkon-gradcam">
+<h2>darkon.Gradcam<a class="headerlink" href="#darkon-gradcam" title="Permalink to this headline">¶</a></h2>
+<p>Used ImageNet, ResNet</p>
+<ul class="simple">
+<li><a class="reference external" href="http://nbviewer.jupyter.org/github/darkonhub/darkon-examples/blob/master/gradcam/example_file_in_here.ipynb">Gradcam &amp; Guided Gradcam</a></li>
 </ul>
 </div>
 </div>
@@ -130,7 +141,7 @@
       &copy;<a href='http://www.neosapience.com'>2017 Neosapience, Inc</a>.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

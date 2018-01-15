@@ -1,0 +1,276 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>gradcam.gradcam &#8212; darkon 0.0.5 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples" href="../example.html" />
+    <link rel="prev" title="influence.feeder" href="darkon.influence.feeder.html" />
+  <meta property="og:site_name" content="darkon" />
+  <meta property="og:title" content="Welcome to Darkon" />
+  <meta property="og:description" content="Performance hacking for your deep learning models." />
+  <meta property="og:image" content="http://darkon.io/_static/logo-og.png" />
+  <meta property="og:url" content="http://darkon.io" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../index.html">
+    <img class="logo" src="../_static/logo.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Performance hacking for your deep learning models</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=darkonhub&repo=darkon&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Darkon</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="darkon.influence.influence.html">influence.influence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="darkon.influence.feeder.html">influence.feeder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">gradcam.gradcam</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../version.html">Versions</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API</a><ul>
+      <li>Previous: <a href="darkon.influence.feeder.html" title="previous chapter">influence.feeder</a></li>
+      <li>Next: <a href="../example.html" title="next chapter">Examples</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-darkon.gradcam.gradcam">
+<span id="gradcam-gradcam"></span><h1>gradcam.gradcam<a class="headerlink" href="#module-darkon.gradcam.gradcam" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>Ramprasaath R. Selvaraju, Michael Cogswell, Abhishek Das, Ramakrishna Vedantam, Devi Parikh, Dhruv Batra “Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization” ICCV2017</td></tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="darkon.gradcam.gradcam.Gradcam">
+<em class="property">class </em><code class="descname">Gradcam</code><span class="sig-paren">(</span><em>x_placeholder</em>, <em>num_classes</em>, <em>featuremap_op_name</em>, <em>predict_op_name=None</em>, <em>graph=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gradcam Class</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x_placeholder</strong> (<em>tf.Tensor</em>) – Data place holder
+Tensor from tf.placeholder()</li>
+<li><strong>num_classes</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – number of classes</li>
+<li><strong>featuremap_op_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Operation name of CNN feature map layer
+To get the list of candidate names, use <code class="docutils literal"><span class="pre">Gradcam.candidate_featuremap_op_names()</span></code></li>
+<li><strong>predict_op_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Operation name of prediction layer (decision output)
+To get the list of candidate names, use <code class="docutils literal"><span class="pre">Gradcam.candidate_predict_op_names()</span></code></li>
+<li><strong>graph</strong> (<em>tf.Graph</em>) – Tensorflow graph</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="staticmethod">
+<dt id="darkon.gradcam.gradcam.Gradcam.candidate_featuremap_op_names">
+<em class="property">static </em><code class="descname">candidate_featuremap_op_names</code><span class="sig-paren">(</span><em>sess</em>, <em>graph=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.candidate_featuremap_op_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.candidate_featuremap_op_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of candidates for operation names of CNN feature map layer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sess</strong> (<em>tf.Session</em>) – Tensorflow session</li>
+<li><strong>graph</strong> (<em>tf.Graph</em>) – Tensorflow graph</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><em>list</em> – String list of candidates</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="darkon.gradcam.gradcam.Gradcam.candidate_predict_op_names">
+<em class="property">static </em><code class="descname">candidate_predict_op_names</code><span class="sig-paren">(</span><em>sess</em>, <em>num_classes</em>, <em>graph=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.candidate_predict_op_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.candidate_predict_op_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of candidate for operation names of prediction layer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sess</strong> (<em>tf.Session</em>) – Tensorflow session</li>
+<li><strong>num_classes</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of prediction classes</li>
+<li><strong>graph</strong> (<em>tf.Graph</em>) – Tensorflow graph</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><em>list</em> – String list of candidates</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="darkon.gradcam.gradcam.Gradcam.gradcam">
+<code class="descname">gradcam</code><span class="sig-paren">(</span><em>sess</em>, <em>input_data</em>, <em>target_index=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.gradcam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.gradcam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate Grad-CAM (class activation map) and Guided Grad-CAM for given input on target class</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sess</strong> (<em>tf.Session</em>) – Tensorflow session</li>
+<li><strong>input_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><em>numpy.ndarray</em></a>) – A single input instance</li>
+<li><strong>target_index</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Target class index
+If None, predicted class index is used</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><em>dict</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<dl class="last docutils">
+<dt>Keys in return:</dt>
+<dd><ul class="first last simple">
+<li>gradcam_img: Heatmap overlayed on input</li>
+<li>guided_gradcam_img: Guided Grad-CAM result</li>
+<li>heatmap: Heatmap of input on the target class</li>
+<li>guided_backprop: Guided backprop result</li>
+</ul>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="darkon.gradcam.gradcam.Gradcam.overlay_gradcam">
+<em class="property">static </em><code class="descname">overlay_gradcam</code><span class="sig-paren">(</span><em>image</em>, <em>heatmap</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.overlay_gradcam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.overlay_gradcam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overlay heatmap on input data</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;<a href='http://www.neosapience.com'>2017 Neosapience, Inc</a>.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/api/darkon.gradcam.gradcam.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/darkonhub/darkon" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-109936098-1']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

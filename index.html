@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Darkon Documentation &#8212; darkon 0.0.4 documentation</title>
+    <title>Darkon Documentation &#8212; darkon 0.0.5 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.4',
+        VERSION:     '0.0.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -119,16 +119,15 @@ But, accountability and controllability could be critical to commercialize deep 
 is enough to use the model for commercial products. However, well-performing models on prepared dataset often fail in real world usages and cause corner cases
 to be fixed. Moreover, it is necessary to explain the result to trust the system in some applications such as medical diagnosis, financial decisions, etc. We hope<span class="raw-html-m2r"><br></span>
 <strong>Darkon</strong> can help you to understand the trained models, which could be used to debug failures, interpret decisions, and so on.</p>
-<p>In this first release, we provide influence score calculation easily applicable to any Tensorflow models (other models to be supported later).
-The score can be used for filtering bad training samples that affects test performance negatively.
-It can be used for prioritize potential mislabeled examples to be fixed, and debugging distribution mismatch between train and test samples.</p>
+<p>Here, we provide functions to analyze deep learning model decisions easily applicable to any Tensorflow models (other models to be supported later).
+Influence score can be useful to understand the model through training samples. The score can be used for filtering bad training samples that affects test performance negatively.
+It is useful to prioritize potential mislabeled examples to be fixed, and debug distribution mismatch between train and test samples.
+In this version, we have added Grad-CAM and Guided Grad-CAM, which are useful to understand decisions of CNN models.</p>
 <p>We will gradually enable technologies to analyze deep learning models easily applicable to your existing projects.
 More features will be released soon. Feedback and feature request are always welcome, which help us to manage priorities. Please keep your eyes on <strong>Darkon</strong>.</p>
 <div class="section" id="demo">
 <h3>Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><a class="reference external" href="https://darkon-demo.herokuapp.com">Demo page</a></li>
-</ul>
+<p><a class="reference external" href="https://darkon-demo.herokuapp.com">Demo Page</a></p>
 </div>
 <div class="section" id="dependencies">
 <h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h3>
@@ -138,25 +137,16 @@ More features will be released soon. Feedback and feature request are always wel
 </div>
 <div class="section" id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<p>Install Darkon alone</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>pip install darkon
 </pre></div>
 </div>
+<p>Install with TensorFlow CPU</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>pip install darkon<span class="o">[</span>tensorflow<span class="o">]</span>
+</pre></div>
 </div>
-<div class="section" id="usage">
-<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">inspector</span> <span class="o">=</span> <span class="n">darkon</span><span class="o">.</span><span class="n">Influence</span><span class="p">(</span><span class="n">workspace_path</span><span class="p">,</span>
-                             <span class="n">YourDataFeeder</span><span class="p">(),</span>
-                             <span class="n">loss_op_train</span><span class="p">,</span>
-                             <span class="n">loss_op_test</span><span class="p">,</span>
-                             <span class="n">x_placeholder</span><span class="p">,</span>
-                             <span class="n">y_placeholder</span><span class="p">)</span>
-
-<span class="n">scores</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">upweighting_influence_batch</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span>
-                                               <span class="n">test_indices</span><span class="p">,</span>
-                                               <span class="n">test_batch_size</span><span class="p">,</span>
-                                               <span class="n">approx_params</span><span class="p">,</span>
-                                               <span class="n">train_batch_size</span><span class="p">,</span>
-                                               <span class="n">train_iterations</span><span class="p">)</span>
+<p>Install with TensorFlow GPU</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>pip install darkon<span class="o">[</span>tensorflow-gpu<span class="o">]</span>
 </pre></div>
 </div>
 </div>
@@ -175,7 +165,7 @@ More features will be released soon. Feedback and feature request are always wel
 </div>
 <div class="section" id="license">
 <h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
-<p><strong>Apache License 2.0</strong></p>
+<p>Apache License 2.0</p>
 </div>
 <div class="section" id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
@@ -183,6 +173,7 @@ More features will be released soon. Feedback and feature request are always wel
 <p>[2] Koh, P. W. and Liang, P. “<a class="reference external" href="https://arxiv.org/abs/1703.04730">Understanding Black-box Predictions via Influence Functions</a>” ICML2017</p>
 <p>[3] Pearlmutter, B. A. “<a class="reference external" href="http://www.bcl.hamilton.ie/~barak/papers/nc-hessian.pdf">Fast exact multiplication by the hessian</a>” Neural Computation, 1994</p>
 <p>[4] Agarwal, N., Bullins, B., and Hazan, E. “<a class="reference external" href="https://arxiv.org/abs/1602.03943">Second order stochastic optimization in linear time</a>” arXiv preprint arXiv:1602.03943</p>
+<p>[5] Ramprasaath R. Selvaraju, Michael Cogswell, Abhishek Das, Ramakrishna Vedantam, Devi Parikh, Dhruv Batra “<a class="reference external" href="https://arxiv.org/abs/1610.02391">Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization</a>” ICCV2017</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -199,7 +190,7 @@ More features will be released soon. Feedback and feature request are always wel
       &copy;<a href='http://www.neosapience.com'>2017 Neosapience, Inc</a>.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
