@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>gradcam.gradcam &#8212; darkon 0.0.5 documentation</title>
+    <title>gradcam.gradcam &#8212; darkon 0.0.6 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.0.5',
+        VERSION:     '0.0.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -144,7 +144,7 @@ To get the list of candidate names, use <code class="docutils literal"><span cla
 </table>
 <dl class="staticmethod">
 <dt id="darkon.gradcam.gradcam.Gradcam.candidate_featuremap_op_names">
-<em class="property">static </em><code class="descname">candidate_featuremap_op_names</code><span class="sig-paren">(</span><em>sess</em>, <em>graph=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.candidate_featuremap_op_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.candidate_featuremap_op_names" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">candidate_featuremap_op_names</code><span class="sig-paren">(</span><em>sess</em>, <em>graph=None</em>, <em>feed_options=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.candidate_featuremap_op_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.candidate_featuremap_op_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the list of candidates for operation names of CNN feature map layer</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -153,6 +153,7 @@ To get the list of candidate names, use <code class="docutils literal"><span cla
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>sess</strong> (<em>tf.Session</em>) – Tensorflow session</li>
 <li><strong>graph</strong> (<em>tf.Graph</em>) – Tensorflow graph</li>
+<li><strong>feed_options</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Optional parameters to graph</li>
 </ul>
 </td>
 </tr>
@@ -165,7 +166,7 @@ To get the list of candidate names, use <code class="docutils literal"><span cla
 
 <dl class="staticmethod">
 <dt id="darkon.gradcam.gradcam.Gradcam.candidate_predict_op_names">
-<em class="property">static </em><code class="descname">candidate_predict_op_names</code><span class="sig-paren">(</span><em>sess</em>, <em>num_classes</em>, <em>graph=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.candidate_predict_op_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.candidate_predict_op_names" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">candidate_predict_op_names</code><span class="sig-paren">(</span><em>sess</em>, <em>num_classes</em>, <em>graph=None</em>, <em>feed_options=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.candidate_predict_op_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.candidate_predict_op_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the list of candidate for operation names of prediction layer</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -175,6 +176,7 @@ To get the list of candidate names, use <code class="docutils literal"><span cla
 <li><strong>sess</strong> (<em>tf.Session</em>) – Tensorflow session</li>
 <li><strong>num_classes</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of prediction classes</li>
 <li><strong>graph</strong> (<em>tf.Graph</em>) – Tensorflow graph</li>
+<li><strong>feed_options</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Optional parameters to graph</li>
 </ul>
 </td>
 </tr>
@@ -187,7 +189,7 @@ To get the list of candidate names, use <code class="docutils literal"><span cla
 
 <dl class="method">
 <dt id="darkon.gradcam.gradcam.Gradcam.gradcam">
-<code class="descname">gradcam</code><span class="sig-paren">(</span><em>sess</em>, <em>input_data</em>, <em>target_index=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.gradcam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.gradcam" title="Permalink to this definition">¶</a></dt>
+<code class="descname">gradcam</code><span class="sig-paren">(</span><em>sess</em>, <em>input_data</em>, <em>target_index=None</em>, <em>feed_options={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/darkon/gradcam/gradcam.html#Gradcam.gradcam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#darkon.gradcam.gradcam.Gradcam.gradcam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate Grad-CAM (class activation map) and Guided Grad-CAM for given input on target class</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -198,6 +200,7 @@ To get the list of candidate names, use <code class="docutils literal"><span cla
 <li><strong>input_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.14)"><em>numpy.ndarray</em></a>) – A single input instance</li>
 <li><strong>target_index</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Target class index
 If None, predicted class index is used</li>
+<li><strong>feed_options</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – Optional parameters to graph</li>
 </ul>
 </td>
 </tr>

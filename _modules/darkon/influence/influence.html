@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>darkon.influence.influence &#8212; darkon 0.0.5 documentation</title>
+    <title>darkon.influence.influence &#8212; darkon 0.0.6 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.0.5',
+        VERSION:     '0.0.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -411,7 +411,7 @@
         <span class="n">print_iter</span> <span class="o">=</span> <span class="n">ihvp_config</span><span class="p">[</span><span class="s1">&#39;recursion_depth&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span>
 
         <span class="n">inverse_hvp</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="k">for</span> <span class="n">sample_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ihvp_config</span><span class="p">[</span><span class="s1">&#39;num_repeats&#39;</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ihvp_config</span><span class="p">[</span><span class="s1">&#39;num_repeats&#39;</span><span class="p">]):</span>
             <span class="n">cur_estimate</span> <span class="o">=</span> <span class="n">test_grad_loss</span>
             <span class="c1"># debug_diffs_estimation = []</span>
             <span class="c1"># prev_estimation_norm = np.linalg.norm(np.concatenate([a.reshape(-1) for a in cur_estimate]))</span>

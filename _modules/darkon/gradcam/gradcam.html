@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>darkon.gradcam.gradcam &#8212; darkon 0.0.5 documentation</title>
+    <title>darkon.gradcam.gradcam &#8212; darkon 0.0.6 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.0.5',
+        VERSION:     '0.0.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -132,6 +132,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">resize</span> <span class="k">as</span> <span class="n">skimage_resize</span>
 
 <span class="kn">from</span> <span class="nn">.guided_grad</span> <span class="kn">import</span> <span class="n">replace_grad_to_guided_grad</span>
 <span class="kn">from</span> <span class="nn">.candidate_ops</span> <span class="kn">import</span> <span class="n">candidate_featuremap_op_names</span><span class="p">,</span> <span class="n">candidate_predict_op_names</span>
@@ -181,10 +182,11 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_placeholder</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">featuremap_op_name</span><span class="p">,</span> <span class="n">predict_op_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_x_placeholder</span> <span class="o">=</span> <span class="n">x_placeholder</span>
         <span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span> <span class="k">if</span> <span class="n">graph</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_default_graph</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span>
 
         <span class="n">predict_op_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_prob_layer</span><span class="p">(</span><span class="n">predict_op_name</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_prob_ts</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">get_operation_by_name</span><span class="p">(</span><span class="n">predict_op_name</span><span class="p">)</span><span class="o">.</span><span class="n">outputs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_target_ts</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">get_operation_by_name</span><span class="p">(</span><span class="n">featuremap_op_name</span><span class="p">)</span><span class="o">.</span><span class="n">outputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prob_ts</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">get_operation_by_name</span><span class="p">(</span><span class="n">predict_op_name</span><span class="p">)</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_ts</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">get_operation_by_name</span><span class="p">(</span><span class="n">featuremap_op_name</span><span class="p">)</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_class_idx</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
         <span class="n">top1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prob_ts</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
@@ -196,10 +198,10 @@
 
         <span class="n">replace_grad_to_guided_grad</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
 
-        <span class="n">max_output</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_ts</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">max_output</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_ts</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_saliency_map</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gradients</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">max_output</span><span class="p">),</span> <span class="n">x_placeholder</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Gradcam.gradcam"><a class="viewcode-back" href="../../../api/darkon.gradcam.gradcam.html#darkon.gradcam.gradcam.Gradcam.gradcam">[docs]</a>    <span class="k">def</span> <span class="nf">gradcam</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sess</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">target_index</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Gradcam.gradcam"><a class="viewcode-back" href="../../../api/darkon.gradcam.gradcam.html#darkon.gradcam.gradcam.Gradcam.gradcam">[docs]</a>    <span class="k">def</span> <span class="nf">gradcam</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sess</span><span class="p">,</span> <span class="n">input_data</span><span class="p">,</span> <span class="n">target_index</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">feed_options</span><span class="o">=</span><span class="nb">dict</span><span class="p">()):</span>
         <span class="sd">&quot;&quot;&quot; Calculate Grad-CAM (class activation map) and Guided Grad-CAM for given input on target class</span>
 
 <span class="sd">        Parameters</span>
@@ -211,6 +213,8 @@
 <span class="sd">        target_index : int</span>
 <span class="sd">            Target class index</span>
 <span class="sd">            If None, predicted class index is used</span>
+<span class="sd">        feed_options : dict</span>
+<span class="sd">            Optional parameters to graph</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -225,41 +229,54 @@
 <span class="sd">            * guided_backprop: Guided backprop result</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="n">input_feed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">image_height</span><span class="p">,</span> <span class="n">image_width</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">input_data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">is_image</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">image_height</span><span class="p">,</span> <span class="n">image_width</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">input_data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">is_image</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">input_length</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">target_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">conv_out_eval</span><span class="p">,</span> <span class="n">grad_eval</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_ts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_grad_by_idx</span><span class="p">],</span>
-                <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_x_placeholder</span><span class="p">:</span> <span class="n">input_feed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class_idx</span><span class="p">:</span> <span class="n">target_index</span><span class="p">})</span>
+            <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_x_placeholder</span><span class="p">:</span> <span class="n">input_feed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class_idx</span><span class="p">:</span> <span class="n">target_index</span><span class="p">}</span>
+            <span class="n">feed_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">feed_options</span><span class="p">)</span>
+            <span class="n">conv_out_eval</span><span class="p">,</span> <span class="n">grad_eval</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_ts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_grad_by_idx</span><span class="p">],</span> <span class="n">feed_dict</span><span class="o">=</span><span class="n">feed_dict</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">conv_out_eval</span><span class="p">,</span> <span class="n">grad_eval</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_ts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_grad_by_top1</span><span class="p">],</span>
-                <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_x_placeholder</span><span class="p">:</span> <span class="n">input_feed</span><span class="p">})</span>
+            <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_x_placeholder</span><span class="p">:</span> <span class="n">input_feed</span><span class="p">}</span>
+            <span class="n">feed_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">feed_options</span><span class="p">)</span>
+            <span class="n">conv_out_eval</span><span class="p">,</span> <span class="n">grad_eval</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_ts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_grad_by_top1</span><span class="p">],</span> <span class="n">feed_dict</span><span class="o">=</span><span class="n">feed_dict</span><span class="p">)</span>
 
         <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">grad_eval</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
         <span class="n">conv_out_eval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">conv_out_eval</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">cam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">conv_out_eval</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">cam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">conv_out_eval</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
             <span class="n">cam</span> <span class="o">+=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">conv_out_eval</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">]</span>
-        <span class="n">cam</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">cam</span><span class="p">,</span> <span class="p">(</span><span class="n">image_height</span><span class="p">,</span> <span class="n">image_width</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">is_image</span><span class="p">:</span>
+            <span class="n">cam</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">cam</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">cam</span><span class="p">,</span> <span class="p">(</span><span class="n">image_height</span><span class="p">,</span> <span class="n">image_width</span><span class="p">))</span>
+            <span class="n">saliency_val</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_saliency_map</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_x_placeholder</span><span class="p">:</span> <span class="n">input_feed</span><span class="p">})</span>
+            <span class="n">saliency_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">saliency_val</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cam</span> <span class="o">=</span> <span class="n">skimage_resize</span><span class="p">(</span><span class="n">cam</span><span class="p">,</span> <span class="p">(</span><span class="n">input_length</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">preserve_range</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;reflect&#39;</span><span class="p">)</span>
+            <span class="n">cam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">cam</span><span class="p">)</span>
+
         <span class="n">cam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">cam</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">heatmap</span> <span class="o">=</span> <span class="n">cam</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">cam</span><span class="p">)</span>
 
-        <span class="n">saliency_val</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_saliency_map</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_x_placeholder</span><span class="p">:</span> <span class="n">input_feed</span><span class="p">})</span>
-        <span class="n">saliency_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">saliency_val</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;heatmap&#39;</span><span class="p">:</span> <span class="n">heatmap</span><span class="p">}</span>
 
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;gradcam_img&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_gradcam</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">heatmap</span><span class="p">),</span>
-            <span class="s1">&#39;guided_gradcam_img&#39;</span><span class="p">:</span> <span class="n">_deprocess_image</span><span class="p">(</span><span class="n">saliency_val</span> <span class="o">*</span> <span class="n">heatmap</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="bp">None</span><span class="p">]),</span>
-            <span class="s1">&#39;heatmap&#39;</span><span class="p">:</span> <span class="n">heatmap</span><span class="p">,</span>
-            <span class="s1">&#39;guided_backprop&#39;</span><span class="p">:</span> <span class="n">saliency_val</span>
-        <span class="p">}</span></div>
+        <span class="k">if</span> <span class="n">is_image</span><span class="p">:</span>
+            <span class="n">ret</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                <span class="s1">&#39;gradcam_img&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlay_gradcam</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">heatmap</span><span class="p">),</span>
+                <span class="s1">&#39;guided_gradcam_img&#39;</span><span class="p">:</span> <span class="n">_deprocess_image</span><span class="p">(</span><span class="n">saliency_val</span> <span class="o">*</span> <span class="n">heatmap</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="bp">None</span><span class="p">]),</span>
+                <span class="s1">&#39;guided_backprop&#39;</span><span class="p">:</span> <span class="n">saliency_val</span>
+            <span class="p">})</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
 
 <div class="viewcode-block" id="Gradcam.candidate_featuremap_op_names"><a class="viewcode-back" href="../../../api/darkon.gradcam.gradcam.html#darkon.gradcam.gradcam.Gradcam.candidate_featuremap_op_names">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">candidate_featuremap_op_names</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">candidate_featuremap_op_names</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">feed_options</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns the list of candidates for operation names of CNN feature map layer</span>
 
 <span class="sd">        Parameters</span>
@@ -268,6 +285,8 @@
 <span class="sd">            Tensorflow session</span>
 <span class="sd">        graph: tf.Graph</span>
 <span class="sd">            Tensorflow graph</span>
+<span class="sd">        feed_options: dict</span>
+<span class="sd">            Optional parameters to graph</span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        list</span>
@@ -275,10 +294,11 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span> <span class="k">if</span> <span class="n">graph</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_default_graph</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">candidate_featuremap_op_names</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span></div>
+        <span class="n">feed_options</span> <span class="o">=</span> <span class="n">feed_options</span> <span class="k">if</span> <span class="n">feed_options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">candidate_featuremap_op_names</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">feed_options</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Gradcam.candidate_predict_op_names"><a class="viewcode-back" href="../../../api/darkon.gradcam.gradcam.html#darkon.gradcam.gradcam.Gradcam.candidate_predict_op_names">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">candidate_predict_op_names</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">candidate_predict_op_names</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">feed_options</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns the list of candidate for operation names of prediction layer</span>
 
 <span class="sd">        Parameters</span>
@@ -289,6 +309,8 @@
 <span class="sd">            Number of prediction classes</span>
 <span class="sd">        graph: tf.Graph</span>
 <span class="sd">            Tensorflow graph</span>
+<span class="sd">        feed_options: dict</span>
+<span class="sd">            Optional parameters to graph</span>
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        list</span>
@@ -296,7 +318,8 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span> <span class="k">if</span> <span class="n">graph</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_default_graph</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">candidate_predict_op_names</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span></div>
+        <span class="n">feed_options</span> <span class="o">=</span> <span class="n">feed_options</span> <span class="k">if</span> <span class="n">feed_options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">candidate_predict_op_names</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">feed_options</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Gradcam.overlay_gradcam"><a class="viewcode-back" href="../../../api/darkon.gradcam.gradcam.html#darkon.gradcam.gradcam.Gradcam.overlay_gradcam">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">overlay_gradcam</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">heatmap</span><span class="p">):</span>
